@@ -710,30 +710,108 @@ body { font-weight: 400; }
 .service-price { font-size: 2rem; font-weight: 400; }
 
 /* ============================================================
-   RESPONSIVE
+   RESPONSIVE — 768px
    ============================================================ */
 @media (max-width: 768px) {
-    nav { padding: 1.2rem 1.5rem; }
+    /* Nav */
+    nav { padding: 1rem 1.2rem; }
     .nav-links { display: none; }
-    .hero-title { font-size: clamp(3rem, 14vw, 5rem); line-height: 1; }
-    .hero-eyebrow { font-size: 0.7rem; }
-    .hero-btn { padding: 1rem 2rem; font-size: 0.78rem; }
-    .hero-phone { font-size: 0.72rem; }
-    .section { padding: 4rem 4%; }
-    .section-title { font-size: clamp(2rem, 7vw, 3rem); }
-    .services-grid { grid-template-columns: 1fr; }
+    .nav-cta { padding: 0.55rem 1.2rem; font-size: 0.6rem; }
+
+    /* Hero */
+    .hero-content { padding: 5rem 1.5rem 2rem; }
+    .hero-title { font-size: clamp(2.8rem, 13vw, 5rem); line-height: 1; }
+    .hero-eyebrow { font-size: 0.65rem; }
+    .hero-btn { padding: 1rem 2.2rem; font-size: 0.75rem; }
+
+    /* Sections */
+    .section { padding: 3.5rem 5%; }
+    .section-title { font-size: clamp(1.9rem, 7vw, 3rem); }
+    .section-header { margin-bottom: 2.5rem; }
+
+    /* Services */
+    .services-grid { grid-template-columns: 1fr; gap: 0; }
+
+    /* Booking */
     .booking-services { grid-template-columns: 1fr 1fr; }
-    .steps { flex-wrap: wrap; gap: 1rem; }
+    .booking-container { padding: 0; }
+
+    /* Steps — horizontal compacto */
+    .steps { flex-wrap: nowrap; gap: 0; justify-content: space-between; margin-bottom: 2.5rem; }
+    .step { flex-direction: column; align-items: center; gap: 0.3rem; flex: 1; }
     .step-line { display: none; }
+    .step-label { font-size: 0.48rem; letter-spacing: 0.1em; text-align: center; }
+    .step-circle { width: 26px; height: 26px; font-size: 0.75rem; }
+
+    /* Forms */
     .form-row { grid-template-columns: 1fr; }
+    .form-input { font-size: 16px; } /* evita zoom en iOS */
+
+    /* Buttons */
+    .btn-row { flex-direction: column-reverse; gap: 0.7rem; }
+    .btn-primary,
+    .btn-secondary { width: 100%; text-align: center; padding: 1rem; }
+
+    /* Card visual */
+    .card-visual-wrapper { height: 195px; margin-bottom: 1.5rem; }
+    .card-visual { width: min(340px, calc(100vw - 3rem)); }
+
+    /* Panel */
+    .panel-title { font-size: 1.7rem; }
+
+    /* Confirmation */
+    .confirm-details { min-width: 0; width: 100%; box-sizing: border-box; }
+    .confirmation { padding: 2rem 0; }
+
+    /* Footer */
     .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .card-visual { width: 100%; max-width: 320px; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
 }
+
+/* ============================================================
+   RESPONSIVE — 480px
+   ============================================================ */
 @media (max-width: 480px) {
-    .booking-services { grid-template-columns: 1fr; }
-    .date-grid { gap: 0.2rem; }
-    .date-num { font-size: 0.9rem; }
+    /* Hero */
     .hero-ornament { display: none; }
+    .hero-title { font-size: clamp(2.4rem, 12vw, 3.5rem); }
+
+    /* Booking services */
+    .booking-services { grid-template-columns: 1fr; }
+
+    /* Calendar */
+    .date-grid { gap: 0.15rem; }
+    .date-day-name { font-size: 0.42rem; letter-spacing: 0.05em; }
+    .date-num { font-size: 0.85rem; }
+    .date-cell { min-height: 40px; }
+
+    /* Time slots — touch targets */
+    .time-slots { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 0.35rem; }
+    .time-slot { padding: 0.75rem 0.4rem; min-height: 44px; display: flex; align-items: center; justify-content: center; font-size: 0.68rem; }
+
+    /* Panel */
+    .panel-title { font-size: 1.5rem; }
+    .panel-subtitle { font-size: 0.58rem; margin-bottom: 1.5rem; }
+
+    /* bscard touch targets */
+    .bscard { padding: 1.2rem; min-height: 44px; }
+
+    /* Steps */
+    .step-label { display: none; }
+    .step-circle { width: 28px; height: 28px; }
+
+    /* Section */
+    .section { padding: 3rem 4%; }
+
+    /* Calendar nav */
+    .cal-btn { width: 36px; height: 36px; font-size: 1.2rem; }
+
+    /* Summary */
+    .summary-row { font-size: 0.72rem; }
+    .booking-summary { padding: 1rem; }
+
+    /* Marquee */
+    .marquee-track span { font-size: 0.55rem; padding: 0 1.2rem; }
 }
 
 /* Time section — hidden until a date is selected */
