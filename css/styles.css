@@ -739,6 +739,9 @@ body { font-weight: 400; }
 /* Time section — hidden until a date is selected */
 #time-section { display: none; }
 
+.slots-loading { color: var(--cream-dim); font-size: 0.72rem; letter-spacing: 0.1em; }
+.slots-error   { color: #e74c3c; font-size: 0.72rem; letter-spacing: 0.05em; }
+
 /* Card input monospace */
 #card-number,
 #card-cvv { font-family: 'Courier Prime', monospace; }

@@ -13,11 +13,7 @@ const state = {
     year:     new Date().getFullYear()
 };
 
-const BOOKED_SLOTS = {
-    '2026-04-22': ['09:00','11:30','14:00'],
-    '2026-04-23': ['10:00','13:00'],
-    '2026-04-25': ['09:30','12:00','16:00'],
-};
+const API_URL = '';
 const ALL_SLOTS = [
     '09:00','09:30','10:00','10:30','11:00','11:30',
     '12:00','12:30','13:00','13:30','14:00','14:30',
@@ -140,7 +136,7 @@ function renderCalendar() {
     }
 }
 
-function selectDate(ds, selectedCell) {
+async function selectDate(ds, selectedCell) {
     document.querySelectorAll('#date-grid .date-cell').forEach(c => c.classList.remove('selected'));
     selectedCell.classList.add('selected');
     state.date = ds;
@@ -150,24 +146,34 @@ function selectDate(ds, selectedCell) {
     btn.disabled = true;
     btn.setAttribute('aria-disabled', 'true');
 
-    renderTimeSlots(ds);
     $('time-section').style.display = 'block';
+    await renderTimeSlots(ds);
 }
 
 /* ============================================================
-   TIME SLOTS — usa createElement
+   TIME SLOTS — consulta disponibilidad real desde la API
    ============================================================ */
-function renderTimeSlots(ds) {
-    const booked    = BOOKED_SLOTS[ds] || [];
+async function renderTimeSlots(ds) {
     const container = $('time-slots');
-    container.innerHTML = '';
+    container.innerHTML = '<p class="slots-loading">Cargando horarios…</p>';
 
+    let booked = [];
+    try {
+        const res  = await fetch(`${API_URL}/disponibilidad?fecha=${ds}`);
+        const data = await res.json();
+        booked = data.ocupados || [];
+    } catch {
+        container.innerHTML = '<p class="slots-error">Error al cargar horarios. Intenta de nuevo.</p>';
+        return;
+    }
+
+    container.innerHTML = '';
     ALL_SLOTS.forEach(t => {
         const slot = document.createElement('div');
         slot.className = [
             'time-slot',
-            booked.includes(t)  ? 'booked'   : '',
-            state.time === t    ? 'selected'  : ''
+            booked.includes(t) ? 'booked'  : '',
+            state.time === t   ? 'selected' : ''
         ].filter(Boolean).join(' ');
         slot.textContent = t;
 
@@ -269,7 +275,7 @@ function flipCard(toBack) {
 /* ============================================================
    CONFIRMACIÓN DE PAGO — validación inline
    ============================================================ */
-function confirmPayment() {
+async function confirmPayment() {
     clearErrors('err-card-number', 'err-card-name', 'err-card-exp', 'err-card-cvv');
 
     const num  = $('card-number').value.replace(/\s/g, '');
@@ -287,6 +293,28 @@ function confirmPayment() {
     const btn = $('btn-confirm');
     btn.disabled = true;
     btn.textContent = 'Procesando…';
+
+    try {
+        const res = await fetch(`${API_URL}/reservas`, {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                nombre:   $('inp-name').value.trim(),
+                apellido: $('inp-lastname').value.trim(),
+                email:    $('inp-email').value.trim(),
+                servicio: state.service,
+                precio:   state.price,
+                fecha:    state.date,
+                hora:     state.time
+            })
+        });
+        if (!res.ok) throw new Error();
+    } catch {
+        showError('err-card-number', 'Error al procesar la reserva. Intenta de nuevo.');
+        btn.disabled = false;
+        btn.textContent = 'Confirmar y Pagar';
+        return;
+    }
 
     const [y, m, d] = state.date.split('-');
     const dt  = new Date(+y, +m - 1, +d);
