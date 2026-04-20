@@ -167,17 +167,26 @@ async function renderTimeSlots(ds) {
         return;
     }
 
+    const now       = new Date();
+    const todayStr  = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+    const isToday   = ds === todayStr;
+    const nowMins   = now.getHours() * 60 + now.getMinutes();
+
     container.innerHTML = '';
     ALL_SLOTS.forEach(t => {
+        const [h, m]  = t.split(':').map(Number);
+        const pastToday = isToday && (h * 60 + m) <= nowMins;
+        const unavailable = booked.includes(t) || pastToday;
+
         const slot = document.createElement('div');
         slot.className = [
             'time-slot',
-            booked.includes(t) ? 'booked'  : '',
+            unavailable        ? 'booked'  : '',
             state.time === t   ? 'selected' : ''
         ].filter(Boolean).join(' ');
         slot.textContent = t;
 
-        if (!booked.includes(t)) {
+        if (!unavailable) {
             slot.setAttribute('tabindex', '0');
             slot.addEventListener('click', () => selectTime(t, slot));
             slot.addEventListener('keydown', e => {
