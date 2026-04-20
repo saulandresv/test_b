@@ -44,6 +44,15 @@ app.post('/reservas', async (req, res) => {
         return res.status(400).json({ error: 'Faltan campos obligatorios' });
     }
 
+    const { data: existing } = await supabase
+        .from('reservas')
+        .select('id')
+        .eq('fecha', fecha)
+        .eq('hora', hora)
+        .single();
+
+    if (existing) return res.status(409).json({ error: 'Este horario ya fue reservado. Elige otro.' });
+
     const { data, error } = await supabase
         .from('reservas')
         .insert([{ nombre, apellido, email, servicio, precio, fecha, hora }])

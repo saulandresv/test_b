@@ -308,9 +308,13 @@ async function confirmPayment() {
                 hora:     state.time
             })
         });
+        if (res.status === 409) { const e = new Error('slot_taken'); e.message = 'slot_taken'; throw e; }
         if (!res.ok) throw new Error();
-    } catch {
-        showError('err-card-number', 'Error al procesar la reserva. Intenta de nuevo.');
+    } catch (err) {
+        const msg = err?.message === 'slot_taken'
+            ? 'Este horario ya fue reservado. Vuelve al paso 2 y elige otro.'
+            : 'Error al procesar la reserva. Intenta de nuevo.';
+        showError('err-card-number', msg);
         btn.disabled = false;
         btn.textContent = 'Confirmar y Pagar';
         return;
