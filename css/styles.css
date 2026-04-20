@@ -1,0 +1,999 @@
+/* ============================================================
+   VARIABLES & RESET
+   ============================================================ */
+:root {
+    --black:      #080808;
+    --dark:       #111111;
+    --gold:       #C8A96E;
+    --gold-light: #E8C98E;
+    --gold-dark:  #8B6914;
+    --cream:      #F5F0E8;
+    --cream-dim:  #BDB8B0;
+    --white:      #FAF7F2;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+}
+
+/* ============================================================
+   NAV
+   Heatmap: logo (izq) y CTA (der) son las zonas más calientes
+   ============================================================ */
+nav {
+    position: fixed;
+    top: 0; width: 100%;
+    z-index: 100;
+    padding: 1.4rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(8,8,8,0.97) 60%, transparent);
+}
+.nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+}
+.nav-links a {
+    color: var(--cream-dim);
+    text-decoration: none;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* CTA nav — zona caliente top-right */
+.nav-cta {
+    background: var(--gold);
+    border: none;
+    color: var(--black);
+    padding: 0.65rem 1.6rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s;
+    display: inline-block;
+}
+.nav-cta:hover { background: var(--gold-light); }
+
+/* ============================================================
+   HERO
+   Heatmap: centro-superior es el área de mayor calor.
+   Título + CTA en el tercio superior del viewport.
+   Teléfono visible — usuarios móviles lo buscan primero.
+   ============================================================ */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.hero-bg {
+    position: absolute; inset: 0;
+    background: var(--black);
+}
+/* Patrón geométrico Art Deco sutil — no compite con el texto */
+.hero-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+        repeating-linear-gradient(45deg,  transparent, transparent 50px, rgba(200,169,110,0.025) 50px, rgba(200,169,110,0.025) 51px),
+        repeating-linear-gradient(-45deg, transparent, transparent 50px, rgba(200,169,110,0.025) 50px, rgba(200,169,110,0.025) 51px);
+}
+/* Vignette para profundidad */
+.hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(8,8,8,0.7) 100%);
+}
+
+/* Ornamentos de esquina Art Deco */
+.hero-ornament {
+    position: absolute;
+    width: 70px; height: 70px;
+    opacity: 0.3;
+    pointer-events: none;
+}
+.hero-ornament::before,
+.hero-ornament::after { content: ''; position: absolute; background: var(--gold); }
+.hero-ornament::before { top: 0; left: 0; width: 100%; height: 1px; }
+.hero-ornament::after  { top: 0; left: 0; width: 1px; height: 100%; }
+.hero-ornament.tl { top: 12%; left: 10%; }
+.hero-ornament.tr { top: 12%; right: 10%; transform: scaleX(-1); }
+.hero-ornament.bl { bottom: 18%; left: 10%; transform: scaleY(-1); }
+.hero-ornament.br { bottom: 18%; right: 10%; transform: scale(-1); }
+
+.hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+    padding: 0 2rem;
+}
+.hero-eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.2s;
+}
+.hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.8rem, 11vw, 8.5rem);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+}
+.hero-title em { font-style: italic; color: var(--gold); }
+
+.hero-divider {
+    width: 50px; height: 1px;
+    background: var(--gold);
+    margin: 1.8rem auto;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.6s;
+}
+.hero-subtitle {
+    font-size: 0.68rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.7s;
+}
+
+/* CTA principal — tamaño generoso, zona más caliente del hero */
+.hero-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--black);
+    padding: 1.1rem 3.5rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.9s;
+}
+.hero-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+/* Teléfono — zona caliente secundaria, usuarios lo buscan debajo del CTA */
+.hero-phone {
+    display: block;
+    margin-top: 1.2rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    color: var(--cream-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 1.1s;
+}
+.hero-phone:hover { color: var(--gold); }
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 0; right: 0;
+    margin: 0 auto;
+    width: fit-content;
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeUp 0.7s ease forwards 1.5s;
+    transition: opacity 0.55s ease, transform 0.55s ease;
+    pointer-events: none;
+}
+.scroll-indicator.hidden {
+    opacity: 0;
+    transform: translateY(12px);
+}
+.scroll-indicator span {
+    font-size: 0.52rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+}
+.scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse { 0%,100% { opacity:.3; } 50% { opacity:1; } }
+@keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+
+/* ============================================================
+   SECCIONES BASE
+   ============================================================ */
+.section {
+    padding: 7rem 6%;
+    position: relative;
+}
+.section.dark { background: var(--dark); }
+.section-sep {
+    position: absolute;
+    top: 0; left: 6%; right: 6%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+.section-header {
+    margin-bottom: 3.5rem;
+}
+.section-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+}
+.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+}
+
+/* ============================================================
+   SERVICIOS
+   Heatmap: precio e icono son lo primero que escanea el ojo.
+   Precio visible sin hover.
+   ============================================================ */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1px;
+    background: rgba(200,169,110,0.1);
+}
+.service-card {
+    background: var(--dark);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.35s;
+}
+.service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+}
+.service-card:hover { background: #161616; }
+.service-card:hover::after { transform: scaleX(1); }
+.service-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    display: block;
+    opacity: 0.8;
+}
+.service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+}
+.service-desc {
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--cream-dim);
+    line-height: 1.9;
+    margin-bottom: 1.5rem;
+}
+.service-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem;
+    font-weight: 300;
+    color: var(--gold);
+}
+.service-duration {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    color: var(--cream-dim);
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+}
+
+/* ============================================================
+   BOOKING — flujo de reserva
+   Heatmap: step indicator y precio deben ser siempre visibles.
+   ============================================================ */
+.booking-container { max-width: 860px; margin: 0 auto; }
+
+.steps {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+.step {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    flex: 1;
+}
+.step-circle {
+    width: 30px; height: 30px;
+    border: 1px solid rgba(200,169,110,0.25);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cream-dim);
+    flex-shrink: 0;
+    transition: all 0.3s;
+}
+.step.active  .step-circle { border-color: var(--gold); background: var(--gold); color: var(--black); }
+.step.done    .step-circle { border-color: var(--gold); color: var(--gold); }
+.step-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    white-space: nowrap;
+}
+.step.active .step-label { color: var(--gold); }
+.step-line { flex: 1; height: 1px; background: rgba(200,169,110,0.15); margin: 0 0.8rem; }
+
+.booking-panel { display: none; }
+.booking-panel.active { display: block; animation: fadeUp 0.35s ease; }
+
+.panel-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+}
+.panel-subtitle {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: var(--cream-dim);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+}
+
+/* Servicios en booking */
+.booking-services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+.bscard {
+    border: 1px solid rgba(200,169,110,0.18);
+    padding: 1.4rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+}
+.bscard:hover,
+.bscard.selected { border-color: var(--gold); background: rgba(200,169,110,0.05); }
+.bscard.selected::after {
+    content: '✓';
+    position: absolute; top: 0.7rem; right: 0.8rem;
+    color: var(--gold); font-size: 0.75rem;
+}
+.bscard-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--white); margin-bottom: 0.2rem; }
+.bscard-price { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; }
+.bscard-dur { font-size: 0.58rem; letter-spacing: 0.1em; color: var(--cream-dim); text-transform: uppercase; margin-top: 0.2rem; }
+
+/* Calendario */
+.calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+}
+.cal-month { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; color: var(--white); }
+.cal-btn {
+    background: none;
+    border: 1px solid rgba(200,169,110,0.25);
+    color: var(--gold);
+    width: 30px; height: 30px;
+    cursor: pointer; font-size: 1rem;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+}
+.cal-btn:hover { border-color: var(--gold); background: rgba(200,169,110,0.08); }
+
+.date-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.35rem;
+    margin-bottom: 2rem;
+}
+.date-cell {
+    aspect-ratio: 1;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.date-cell:hover:not(.disabled):not(.empty) {
+    border-color: rgba(200,169,110,0.4);
+    background: rgba(200,169,110,0.05);
+}
+.date-cell.selected { border-color: var(--gold); background: rgba(200,169,110,0.08); }
+.date-cell.disabled { opacity: 0.2; cursor: default; }
+.date-cell.empty { cursor: default; }
+.date-cell.today .date-num { color: var(--gold); font-weight: 600; }
+.date-day-name { font-size: 0.48rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.15rem; }
+.date-num { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--white); }
+
+/* Time slots */
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 0.4rem;
+    margin-bottom: 2rem;
+}
+.time-slot {
+    border: 1px solid rgba(200,169,110,0.18);
+    padding: 0.65rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--cream-dim);
+}
+.time-slot:hover,
+.time-slot.selected { border-color: var(--gold); color: var(--gold); background: rgba(200,169,110,0.05); }
+.time-slot.booked { opacity: 0.2; cursor: default; text-decoration: line-through; }
+
+/* Formulario datos */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-group { margin-bottom: 1rem; }
+.form-label {
+    display: block;
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.45rem;
+}
+.form-input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(200,169,110,0.2);
+    color: var(--white);
+    padding: 0.82rem 1rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    transition: border-color 0.3s;
+    outline: none;
+}
+.form-input:focus { border-color: var(--gold); }
+.form-input.error { border-color: #c0392b; }
+.form-input::placeholder { color: rgba(189,184,176,0.35); }
+.field-error {
+    display: block;
+    font-size: 0.62rem;
+    letter-spacing: 0.05em;
+    color: #e74c3c;
+    margin-top: 0.3rem;
+    min-height: 1em;
+}
+
+/* ============================================================
+   TARJETA DE CRÉDITO — visual interactivo
+   ============================================================ */
+.card-visual-wrapper { perspective: 1000px; margin-bottom: 2rem; height: 195px; }
+.card-visual {
+    width: 340px; height: 195px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.23,1,0.32,1);
+    margin: 0 auto;
+}
+.card-visual.flipped { transform: rotateY(180deg); }
+.card-face {
+    position: absolute; inset: 0;
+    border-radius: 10px;
+    backface-visibility: hidden;
+    padding: 1.4rem 1.8rem;
+    overflow: hidden;
+}
+.card-front {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border: 1px solid rgba(200,169,110,0.25);
+}
+.card-back {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    transform: rotateY(180deg);
+    border: 1px solid rgba(200,169,110,0.25);
+}
+.card-chip {
+    width: 38px; height: 28px;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+.card-number-display {
+    font-family: 'Courier Prime', monospace;
+    font-size: 1.1rem;
+    letter-spacing: 0.2em;
+    color: var(--white);
+    margin-bottom: 0.9rem;
+}
+.card-info-row { display: flex; justify-content: space-between; align-items: flex-end; }
+.card-lbl { font-size: 0.42rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.15rem; }
+.card-val { font-family: 'Courier Prime', monospace; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--white); }
+.card-brand-disp { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--gold); font-style: italic; }
+.card-stripe { width: calc(100% + 3.6rem); height: 38px; background: rgba(0,0,0,0.75); margin: 0.8rem -1.8rem; }
+.card-cvv-row { display: flex; align-items: center; justify-content: flex-end; gap: 1rem; margin-top: 0.8rem; }
+.card-cvv-strip {
+    background: rgba(255,255,255,0.88);
+    padding: 0.35rem 0.9rem;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.95rem;
+    letter-spacing: 0.3em;
+    color: var(--black);
+    min-width: 75px; text-align: center;
+}
+
+/* Resumen de reserva */
+.booking-summary {
+    background: rgba(200,169,110,0.04);
+    border: 1px solid rgba(200,169,110,0.18);
+    padding: 1.4rem;
+    margin-bottom: 2rem;
+}
+.summary-title { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.9rem; }
+.summary-row { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--cream-dim); padding: 0.3rem 0; }
+.summary-row.total {
+    border-top: 1px solid rgba(200,169,110,0.18);
+    margin-top: 0.4rem; padding-top: 0.7rem;
+    color: var(--white);
+}
+.summary-row.total span:last-child {
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+}
+
+/* Botones */
+.btn-row { display: flex; justify-content: flex-end; align-items: center; margin-top: 1.5rem; gap: 1rem; }
+.btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    border: none;
+    padding: 0.95rem 2.5rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.btn-primary:hover { background: var(--gold-light); }
+.btn-primary:disabled { opacity: 0.3; cursor: default; }
+.btn-secondary {
+    background: transparent;
+    color: var(--cream-dim);
+    border: 1px solid rgba(200,169,110,0.18);
+    padding: 0.95rem 2rem;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ============================================================
+   CONFIRMACIÓN
+   ============================================================ */
+.confirmation { text-align: center; padding: 4rem 2rem; }
+.confirm-icon {
+    width: 72px; height: 72px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.8rem;
+    font-size: 1.8rem; color: var(--gold);
+}
+.confirm-title { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--white); margin-bottom: 0.4rem; }
+.confirm-subtitle { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-dim); margin-bottom: 2.5rem; }
+.confirm-details {
+    display: inline-flex; flex-direction: column; gap: 0.4rem; text-align: left;
+    background: rgba(200,169,110,0.04);
+    border: 1px solid rgba(200,169,110,0.18);
+    padding: 1.4rem 2.2rem;
+    margin-bottom: 1.8rem;
+    min-width: 300px;
+}
+
+/* ============================================================
+   FOOTER
+   Heatmap: dirección, teléfono y horario son las zonas más
+   buscadas al llegar al footer.
+   ============================================================ */
+footer {
+    background: #0C0C0C;
+    padding: 4rem 6%;
+    border-top: 1px solid rgba(200,169,110,0.08);
+}
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 2.5rem;
+}
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 300; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.8rem; }
+.footer-tagline { font-size: 0.65rem; letter-spacing: 0.08em; color: var(--cream-dim); line-height: 2.2; }
+.footer-col-title { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+.footer-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.footer-list li { color: var(--cream-dim); font-size: 0.68rem; letter-spacing: 0.06em; }
+.footer-list a { color: var(--cream-dim); text-decoration: none; transition: color 0.25s; }
+.footer-list a:hover { color: var(--gold); }
+.footer-bottom {
+    border-top: 1px solid rgba(200,169,110,0.08);
+    padding-top: 1.8rem;
+    display: flex; justify-content: space-between; align-items: center;
+}
+.footer-copy { font-size: 0.58rem; letter-spacing: 0.06em; color: rgba(189,184,176,0.3); }
+
+/* ============================================================
+   LEGIBILIDAD & CONTRASTE — overrides
+   ============================================================ */
+body { font-weight: 400; }
+
+.hero-eyebrow,
+.hero-subtitle,
+.section-label,
+.footer-col-title { font-weight: 400; letter-spacing: 0.35em; }
+
+.hero-subtitle   { color: #D4CEC6; }
+.service-desc    { color: #C8C2BA; font-size: 0.82rem; font-weight: 400; }
+.step-label      { color: #C8C2BA; font-weight: 400; }
+.panel-subtitle  { color: #C8C2BA; font-weight: 400; }
+.bscard-dur      { color: #C8C2BA; }
+.time-slot       { color: #D4CEC6; font-weight: 400; }
+.summary-row     { color: #D4CEC6; }
+.footer-tagline  { color: #C8C2BA; font-weight: 400; }
+.footer-list li  { color: #C8C2BA; font-weight: 400; }
+.footer-copy     { color: rgba(200,194,186,0.5); }
+.form-label      { font-weight: 600; }
+
+.form-input {
+    color: #FAF7F2;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+.form-input::placeholder { color: rgba(200,194,186,0.5); }
+
+.service-price { font-size: 2rem; font-weight: 400; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero-title { font-size: clamp(3rem, 14vw, 5rem); line-height: 1; }
+    .hero-eyebrow { font-size: 0.7rem; }
+    .hero-btn { padding: 1rem 2rem; font-size: 0.78rem; }
+    .hero-phone { font-size: 0.72rem; }
+    .section { padding: 4rem 4%; }
+    .section-title { font-size: clamp(2rem, 7vw, 3rem); }
+    .services-grid { grid-template-columns: 1fr; }
+    .booking-services { grid-template-columns: 1fr 1fr; }
+    .steps { flex-wrap: wrap; gap: 1rem; }
+    .step-line { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .card-visual { width: 100%; max-width: 320px; }
+}
+@media (max-width: 480px) {
+    .booking-services { grid-template-columns: 1fr; }
+    .date-grid { gap: 0.2rem; }
+    .date-num { font-size: 0.9rem; }
+    .hero-ornament { display: none; }
+}
+
+/* Time section — hidden until a date is selected */
+#time-section { display: none; }
+
+/* Card input monospace */
+#card-number,
+#card-cvv { font-family: 'Courier Prime', monospace; }
+#card-number { letter-spacing: 0.18em; }
+#card-cvv    { letter-spacing: 0.2em; }
+
+/* Confirmation panel — gold highlights */
+#conf-service,
+#conf-datetime,
+#conf-total { color: var(--gold); }
+
+/* Confirmation footer note */
+.confirm-note {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: #C8C2BA;
+}
+
+/* New booking button spacing */
+#btn-new-booking { margin-top: 2rem; }
+
+/* Time section heading spacing */
+#time-section .panel-subtitle { margin-bottom: 1rem; }
+
+/* Card CVV label */
+.card-cvv-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+}
+
+/* ============================================================
+   2025/2026 DESIGN ENHANCEMENTS
+   ============================================================ */
+
+/* --- Grain texture — tactile luxury overlay --- */
+body::before {
+    content: '';
+    position: fixed;
+    inset: -50%;
+    width: 200%; height: 200%;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+}
+
+/* --- Hero: ambient warm atmospheric glow from below --- */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 65%;
+    background: radial-gradient(ellipse 80% 55% at 50% 100%, rgba(200,169,110,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* --- Nav: backdrop glass when page is scrolled --- */
+nav {
+    transition: background 0.45s ease, backdrop-filter 0.45s ease, border-color 0.45s ease;
+    border-bottom: 1px solid transparent;
+}
+nav.nav-scrolled {
+    background: rgba(8,8,8,0.82) !important;
+    backdrop-filter: blur(22px) saturate(1.4);
+    -webkit-backdrop-filter: blur(22px) saturate(1.4);
+    border-bottom-color: rgba(200,169,110,0.07);
+}
+
+/* --- Marquee ticker band --- */
+.marquee-band {
+    background: var(--gold);
+    padding: 0.75rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: default;
+}
+.marquee-track {
+    display: inline-flex;
+    align-items: center;
+    animation: marquee 32s linear infinite;
+}
+.marquee-track span {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--black);
+    padding: 0 1.8rem;
+}
+.marquee-sep {
+    color: rgba(8,8,8,0.35) !important;
+    padding: 0 0.2rem !important;
+    letter-spacing: 0 !important;
+    font-size: 0.45rem !important;
+}
+.marquee-band:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* --- Scroll reveal --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.17s; }
+.reveal-delay-3 { transition-delay: 0.26s; }
+.reveal-delay-4 { transition-delay: 0.35s; }
+
+/* --- Button shine sweep on hover --- */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+}
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -110%;
+    width: 55%; height: 100%;
+    background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.22) 50%, transparent 100%);
+    transform: skewX(-18deg);
+    pointer-events: none;
+}
+.btn-primary:not(:disabled):hover::after {
+    left: 155%;
+    transition: left 0.5s ease;
+}
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(200,169,110,0.25);
+}
+.btn-primary:not(:disabled):not(:hover)::after {
+    transition: left 0s;
+}
+
+/* --- Confirmation: animated entrance --- */
+.confirm-icon {
+    opacity: 0;
+    transform: scale(0.6);
+    transition: none;
+}
+.confirmation.animate .confirm-icon {
+    animation: confirmPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.05s;
+}
+@keyframes confirmPop {
+    to { opacity: 1; transform: scale(1); }
+}
+.confirmation.animate .confirm-title {
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards 0.35s;
+}
+.confirmation.animate .confirm-subtitle {
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards 0.5s;
+}
+.confirmation.animate .confirm-details {
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards 0.65s;
+}
+.confirmation.animate .confirm-note {
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards 0.8s;
+}
+.confirmation.animate #btn-new-booking {
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards 0.95s;
+}
+
+/* --- Time slot: solid fill on selected (more satisfying) --- */
+.time-slot.selected {
+    background: var(--gold) !important;
+    color: var(--black) !important;
+    border-color: var(--gold) !important;
+    font-weight: 700;
+}
+
+/* --- bscard selected glow + check --- */
+.bscard.selected {
+    box-shadow: 0 0 0 1px var(--gold), 0 0 24px rgba(200,169,110,0.08);
+}
+
+/* --- Calendar today dot indicator --- */
+.date-cell.today .date-num::after {
+    content: '';
+    display: block;
+    width: 3px; height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    margin: 1px auto 0;
+}
+
+/* --- Designed focus ring (keyboard nav) --- */
+:focus-visible {
+    outline: 1.5px solid var(--gold);
+    outline-offset: 3px;
+}
+
+/* --- Services section ambient top glow --- */
+.section.dark {
+    background: radial-gradient(ellipse 60% 30% at 50% 0%, rgba(200,169,110,0.04) 0%, var(--dark) 55%);
+}
+
+/* --- Step line: animated fill for done steps --- */
+.step.done ~ .step-line {
+    background: linear-gradient(to right, rgba(200,169,110,0.5), rgba(200,169,110,0.15));
+}
+
+/* --- Hero background: subtle living warmth --- */
+.hero-bg {
+    background: radial-gradient(ellipse 100% 80% at 50% 120%, rgba(200,169,110,0.05) 0%, var(--black) 60%);
+}
+
+/* --- Booking panel entry animation (smoother) --- */
+.booking-panel.active {
+    animation: panelIn 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes panelIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Reduce motion: respect user preference --- */
+@media (prefers-reduced-motion: reduce) {
+    .reveal,
+    .reveal.visible           { opacity: 1; transform: none; transition: none; }
+    .marquee-track             { animation: none; }
+    .hero-eyebrow,
+    .hero-title,
+    .hero-divider,
+    .hero-subtitle,
+    .hero-btn,
+    .hero-phone,
+    .scroll-indicator          { animation: none; opacity: 1; transform: none; }
+    .btn-primary::after        { display: none; }
+    .btn-primary:hover         { transform: none; box-shadow: none; }
+    .confirmation.animate .confirm-icon,
+    .confirmation.animate .confirm-title,
+    .confirmation.animate .confirm-subtitle,
+    .confirmation.animate .confirm-details,
+    .confirmation.animate .confirm-note,
+    .confirmation.animate #btn-new-booking { animation: none; opacity: 1; transform: none; }
+    .booking-panel.active      { animation: none; }
+    .scroll-line               { animation: none; }
+}

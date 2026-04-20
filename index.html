@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self'; img-src 'self' data:; connect-src 'none'">
+
+    <!-- ============================================================
+         SEO — Title & Meta
+    ============================================================ -->
+    <title>Barber & Co | Barbería en Providencia, Santiago — Corte y Barba Premium</title>
+    <meta name="description" content="Barbería premium en Providencia, Santiago. Corte de cabello, barba y afeitado clásico con navaja. Reserva tu hora online. Atención de lunes a sábado.">
+    <meta name="keywords" content="barbería Santiago, barbería Providencia, corte de cabello hombre, barba navaja, afeitado clásico, barbería premium Chile">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Barber & Co">
+    <link rel="canonical" href="https://barberandco.cl/">
+
+    <!-- ============================================================
+         SEO — Open Graph (Facebook / WhatsApp / LinkedIn)
+    ============================================================ -->
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="https://barberandco.cl/">
+    <meta property="og:title"       content="Barber & Co | Barbería Premium en Providencia, Santiago">
+    <meta property="og:description" content="Corte clásico, barba con navaja y ritual completo del caballero. Reserva tu hora online.">
+    <meta property="og:image"       content="https://barberandco.cl/og-image.jpg">
+    <meta property="og:locale"      content="es_CL">
+
+    <!-- ============================================================
+         SEO — Twitter Card
+    ============================================================ -->
+    <meta name="twitter:card"        content="summary_large_image">
+    <meta name="twitter:title"       content="Barber & Co | Barbería Premium Santiago">
+    <meta name="twitter:description" content="Corte, barba y afeitado clásico en Providencia. Reserva online.">
+    <meta name="twitter:image"       content="https://barberandco.cl/og-image.jpg">
+
+    <!-- ============================================================
+         SEO — Schema.org LocalBusiness (JSON-LD)
+    ============================================================ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HairSalon",
+        "name": "Barber & Co",
+        "description": "Barbería premium en Providencia, Santiago. Corte de cabello, barba y afeitado clásico con navaja.",
+        "url": "https://barberandco.cl",
+        "telephone": "+56223456789",
+        "priceRange": "$$$",
+        "image": "https://barberandco.cl/og-image.jpg",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Av. Providencia 1234",
+            "addressLocality": "Providencia",
+            "addressRegion": "Región Metropolitana",
+            "postalCode": "7500000",
+            "addressCountry": "CL"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -33.4316,
+            "longitude": -70.6080
+        },
+        "openingHoursSpecification": [
+            { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "20:00" },
+            { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "18:00" }
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Servicios de barbería",
+            "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corte Clásico" }, "price": "15000", "priceCurrency": "CLP" },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Barba y Perfilado" }, "price": "12000", "priceCurrency": "CLP" },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Experiencia Completa" }, "price": "25000", "priceCurrency": "CLP" },
+                { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Afeitado Clásico" }, "price": "10000", "priceCurrency": "CLP" }
+            ]
+        }
+    }
+    </script>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Josefin+Sans:wght@300;400;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/styles.css">
+
+
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     Heatmap: logo (izq) + CTA (der) = zonas más calientes
+============================================================ -->
+<header>
+    <nav aria-label="Navegación principal">
+        <a href="/" class="nav-logo" aria-label="Barber & Co — inicio">Barber &amp; Co.</a>
+        <ul class="nav-links" role="list">
+            <li><a href="#services">Servicios</a></li>
+            <li><a href="#booking">Reservar</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+        <!-- CTA top-right — zona de mayor temperatura en nav -->
+        <a href="#booking" class="nav-cta" aria-label="Reservar hora de barbería">Reservar Hora</a>
+    </nav>
+</header>
+
+<!-- ============================================================
+     HERO
+     Heatmap: título + CTA en tercio superior = zona roja.
+     Teléfono debajo del CTA = zona naranja (mobile intent).
+============================================================ -->
+<main>
+<section class="hero" aria-label="Portada">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-ornament tl" aria-hidden="true"></div>
+    <div class="hero-ornament tr" aria-hidden="true"></div>
+    <div class="hero-ornament bl" aria-hidden="true"></div>
+    <div class="hero-ornament br" aria-hidden="true"></div>
+
+    <div class="hero-content">
+        <p class="hero-eyebrow">Providencia, Santiago · Est. 2018</p>
+        <h1 class="hero-title">The<br><em>Gentleman's</em><br>Cut</h1>
+        <div class="hero-divider" aria-hidden="true"></div>
+        <p class="hero-subtitle">Corte · Barba · Ritual</p>
+
+        <!-- CTA principal — zona más caliente de toda la página -->
+        <a href="#booking" class="hero-btn" aria-label="Reservar hora de corte o barba">
+            Reservar Hora
+        </a>
+    </div>
+
+    <div class="scroll-indicator" aria-hidden="true">
+        <span>Descubrir</span>
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+<!-- ============================================================
+     MARQUEE — ticker band entre hero y servicios
+============================================================ -->
+<div class="marquee-band" aria-hidden="true">
+    <div class="marquee-track">
+        <span>Corte Clásico</span><span class="marquee-sep">◆</span>
+        <span>Barba &amp; Perfilado</span><span class="marquee-sep">◆</span>
+        <span>Afeitado con Navaja</span><span class="marquee-sep">◆</span>
+        <span>Providencia, Santiago</span><span class="marquee-sep">◆</span>
+        <span>Est. 2018</span><span class="marquee-sep">◆</span>
+        <span>Experiencia Completa</span><span class="marquee-sep">◆</span>
+        <span>Barber &amp; Co.</span><span class="marquee-sep">◆</span>
+        <span>Corte Clásico</span><span class="marquee-sep">◆</span>
+        <span>Barba &amp; Perfilado</span><span class="marquee-sep">◆</span>
+        <span>Afeitado con Navaja</span><span class="marquee-sep">◆</span>
+        <span>Providencia, Santiago</span><span class="marquee-sep">◆</span>
+        <span>Est. 2018</span><span class="marquee-sep">◆</span>
+        <span>Experiencia Completa</span><span class="marquee-sep">◆</span>
+        <span>Barber &amp; Co.</span><span class="marquee-sep">◆</span>
+    </div>
+</div>
+
+<!-- ============================================================
+     SERVICIOS
+     Heatmap: precio es lo primero que escanea el ojo.
+     Los primeros 2 cards reciben ~70% de la atención.
+============================================================ -->
+<section class="section dark" id="services" aria-labelledby="services-title">
+    <div class="section-sep" aria-hidden="true"></div>
+    <div class="section-header reveal">
+        <p class="section-label">Nuestros servicios</p>
+        <h2 class="section-title" id="services-title">El arte del corte</h2>
+    </div>
+
+    <div class="services-grid">
+        <article class="service-card reveal reveal-delay-1">
+            <span class="service-icon" aria-hidden="true">✂</span>
+            <h3 class="service-name">Corte Clásico</h3>
+            <p class="service-desc">Corte con técnica tradicional, terminado con navaja y peinado con productos premium.</p>
+            <p><span class="service-price">$15.000</span><span class="service-duration">· 45 min</span></p>
+        </article>
+        <article class="service-card reveal reveal-delay-2">
+            <span class="service-icon" aria-hidden="true">〰</span>
+            <h3 class="service-name">Barba &amp; Perfilado</h3>
+            <p class="service-desc">Afeitado con crema caliente, perfilado con navaja y aceites nutritivos para la barba.</p>
+            <p><span class="service-price">$12.000</span><span class="service-duration">· 30 min</span></p>
+        </article>
+        <article class="service-card reveal reveal-delay-3">
+            <span class="service-icon" aria-hidden="true">◈</span>
+            <h3 class="service-name">Experiencia Completa</h3>
+            <p class="service-desc">Corte + barba + tratamiento de cuero cabelludo. El ritual completo del caballero.</p>
+            <p><span class="service-price">$25.000</span><span class="service-duration">· 75 min</span></p>
+        </article>
+        <article class="service-card reveal reveal-delay-4">
+            <span class="service-icon" aria-hidden="true">⟡</span>
+            <h3 class="service-name">Afeitado Clásico</h3>
+            <p class="service-desc">Afeitado tradicional con toalla caliente, espuma artesanal y navaja de filo.</p>
+            <p><span class="service-price">$10.000</span><span class="service-duration">· 25 min</span></p>
+        </article>
+    </div>
+</section>
+
+<!-- ============================================================
+     BOOKING
+============================================================ -->
+<section class="section" id="booking" aria-labelledby="booking-title">
+    <div class="section-sep" aria-hidden="true"></div>
+    <div class="booking-container">
+        <div class="section-header reveal">
+            <p class="section-label">Agenda tu visita</p>
+            <h2 class="section-title" id="booking-title">Reservar tu hora</h2>
+        </div>
+
+        <!-- Step indicator -->
+        <nav class="steps" aria-label="Pasos de reserva">
+            <div class="step active" id="step-1"><div class="step-circle" aria-hidden="true">1</div><span class="step-label">Servicio</span></div>
+            <div class="step-line" aria-hidden="true"></div>
+            <div class="step" id="step-2"><div class="step-circle" aria-hidden="true">2</div><span class="step-label">Fecha &amp; Hora</span></div>
+            <div class="step-line" aria-hidden="true"></div>
+            <div class="step" id="step-3"><div class="step-circle" aria-hidden="true">3</div><span class="step-label">Tus datos</span></div>
+            <div class="step-line" aria-hidden="true"></div>
+            <div class="step" id="step-4"><div class="step-circle" aria-hidden="true">4</div><span class="step-label">Pago</span></div>
+        </nav>
+
+        <!-- Panel 1: Servicio -->
+        <div class="booking-panel active" id="panel-1" role="region" aria-label="Selección de servicio">
+            <h3 class="panel-title">¿Qué servicio deseas?</h3>
+            <p class="panel-subtitle">Selecciona para continuar</p>
+            <div class="booking-services">
+                <div class="bscard" data-service="Corte Clásico" data-price="15000" data-dur="45" role="button" tabindex="0" aria-label="Corte Clásico $15.000 45 minutos">
+                    <div class="bscard-name">Corte Clásico</div>
+                    <div class="bscard-price">$15.000</div>
+                    <div class="bscard-dur">45 min</div>
+                </div>
+                <div class="bscard" data-service="Barba &amp; Perfilado" data-price="12000" data-dur="30" role="button" tabindex="0" aria-label="Barba y Perfilado $12.000 30 minutos">
+                    <div class="bscard-name">Barba &amp; Perfilado</div>
+                    <div class="bscard-price">$12.000</div>
+                    <div class="bscard-dur">30 min</div>
+                </div>
+                <div class="bscard" data-service="Experiencia Completa" data-price="25000" data-dur="75" role="button" tabindex="0" aria-label="Experiencia Completa $25.000 75 minutos">
+                    <div class="bscard-name">Experiencia Completa</div>
+                    <div class="bscard-price">$25.000</div>
+                    <div class="bscard-dur">75 min</div>
+                </div>
+                <div class="bscard" data-service="Afeitado Clásico" data-price="10000" data-dur="25" role="button" tabindex="0" aria-label="Afeitado Clásico $10.000 25 minutos">
+                    <div class="bscard-name">Afeitado Clásico</div>
+                    <div class="bscard-price">$10.000</div>
+                    <div class="bscard-dur">25 min</div>
+                </div>
+            </div>
+            <div class="btn-row">
+                <button class="btn-primary" id="btn-next-1" disabled aria-disabled="true">Continuar →</button>
+            </div>
+        </div>
+
+        <!-- Panel 2: Fecha & Hora -->
+        <div class="booking-panel" id="panel-2" role="region" aria-label="Selección de fecha y hora">
+            <h3 class="panel-title">Elige tu fecha y hora</h3>
+            <p class="panel-subtitle">Domingos cerrado · Horario 9:00–19:00</p>
+            <div class="calendar-nav">
+                <button class="cal-btn" id="cal-prev" aria-label="Mes anterior">‹</button>
+                <span class="cal-month" id="cal-title" aria-live="polite"></span>
+                <button class="cal-btn" id="cal-next" aria-label="Mes siguiente">›</button>
+            </div>
+            <div class="date-grid" id="date-grid" role="grid" aria-label="Calendario"></div>
+            <div id="time-section">
+                <p class="panel-subtitle">Horarios disponibles</p>
+                <div class="time-slots" id="time-slots" role="group" aria-label="Horarios disponibles"></div>
+            </div>
+            <div class="btn-row">
+                <button class="btn-secondary" id="btn-prev-2">← Atrás</button>
+                <button class="btn-primary" id="btn-next-2" disabled aria-disabled="true">Continuar →</button>
+            </div>
+        </div>
+
+        <!-- Panel 3: Datos personales -->
+        <div class="booking-panel" id="panel-3" role="region" aria-label="Datos personales">
+            <h3 class="panel-title">Tus datos</h3>
+            <p class="panel-subtitle">Para confirmar tu reserva</p>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="inp-name">Nombre</label>
+                    <input class="form-input" id="inp-name" type="text" placeholder="Juan" autocomplete="given-name" required>
+                    <span class="field-error" id="err-name"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="inp-lastname">Apellido</label>
+                    <input class="form-input" id="inp-lastname" type="text" placeholder="González" autocomplete="family-name" required>
+                    <span class="field-error" id="err-lastname"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="inp-email">Email</label>
+                    <input class="form-input" id="inp-email" type="email" placeholder="juan@email.com" autocomplete="email">
+                    <span class="field-error" id="err-email"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="inp-phone">Teléfono</label>
+                    <input class="form-input" id="inp-phone" type="tel" placeholder="+56 9 1234 5678" autocomplete="tel">
+                </div>
+            </div>
+            <div class="btn-row">
+                <button class="btn-secondary" id="btn-prev-3">← Atrás</button>
+                <button class="btn-primary" id="btn-next-3">Continuar →</button>
+            </div>
+        </div>
+
+        <!-- Panel 4: Pago -->
+        <div class="booking-panel" id="panel-4" role="region" aria-label="Pago con tarjeta">
+            <h3 class="panel-title">Pago seguro</h3>
+            <p class="panel-subtitle">Encriptación SSL · Datos protegidos</p>
+
+            <div class="booking-summary" aria-label="Resumen de reserva">
+                <div class="summary-title">Resumen</div>
+                <div class="summary-row"><span id="sum-service">—</span><span id="sum-price">—</span></div>
+                <div class="summary-row"><span id="sum-datetime">—</span></div>
+                <div class="summary-row total"><span>Total</span><span id="sum-total">—</span></div>
+            </div>
+
+            <!-- Tarjeta visual interactiva -->
+            <div class="card-visual-wrapper" aria-hidden="true">
+                <div class="card-visual" id="card-visual">
+                    <div class="card-face card-front">
+                        <div class="card-chip"></div>
+                        <div class="card-number-display" id="card-num-disp">•••• •••• •••• ••••</div>
+                        <div class="card-info-row">
+                            <div><div class="card-lbl">Titular</div><div class="card-val" id="card-name-disp">NOMBRE APELLIDO</div></div>
+                            <div><div class="card-lbl">Vence</div><div class="card-val" id="card-exp-disp">MM/AA</div></div>
+                            <div class="card-brand-disp" id="card-brand-disp">Visa</div>
+                        </div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div class="card-stripe"></div>
+                        <div class="card-cvv-row">
+                            <span class="card-cvv-label">CVV</span>
+                            <div class="card-cvv-strip" id="card-cvv-disp">•••</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="card-number">Número de tarjeta</label>
+                <input class="form-input" id="card-number" type="text" inputmode="numeric"
+                    placeholder="0000 0000 0000 0000" maxlength="19"
+                    autocomplete="cc-number" required>
+                <span class="field-error" id="err-card-number"></span>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="card-name">Nombre en la tarjeta</label>
+                <input class="form-input" id="card-name" type="text"
+                    placeholder="Como aparece en la tarjeta"
+                    autocomplete="cc-name" required>
+                <span class="field-error" id="err-card-name"></span>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="card-exp">Vencimiento</label>
+                    <input class="form-input" id="card-exp" type="text" inputmode="numeric"
+                        placeholder="MM/AA" maxlength="5"
+                        autocomplete="cc-exp" required>
+                    <span class="field-error" id="err-card-exp"></span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="card-cvv">CVV</label>
+                    <input class="form-input" id="card-cvv" type="text" inputmode="numeric"
+                        placeholder="•••" maxlength="4"
+                        autocomplete="cc-csc" required>
+                    <span class="field-error" id="err-card-cvv"></span>
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button class="btn-secondary" id="btn-prev-4">← Atrás</button>
+                <button class="btn-primary" id="btn-confirm">Confirmar y Pagar</button>
+            </div>
+        </div>
+
+        <!-- Panel 5: Confirmación -->
+        <div class="booking-panel" id="panel-5" role="region" aria-label="Reserva confirmada">
+            <div class="confirmation">
+                <div class="confirm-icon" aria-hidden="true">✓</div>
+                <h3 class="confirm-title">¡Reserva Confirmada!</h3>
+                <p class="confirm-subtitle">Te esperamos con gusto</p>
+                <div class="confirm-details">
+                    <div class="summary-row"><span>Servicio</span><span id="conf-service">—</span></div>
+                    <div class="summary-row"><span>Fecha y hora</span><span id="conf-datetime">—</span></div>
+                    <div class="summary-row"><span>Total pagado</span><span id="conf-total">—</span></div>
+                </div>
+                <p class="confirm-note">
+                    Recibirás un email de confirmación con todos los detalles.
+                </p>
+                <button class="btn-primary" id="btn-new-booking">
+                    Nueva Reserva
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- ============================================================
+     FOOTER
+     Heatmap: dirección, teléfono y horario = zonas buscadas.
+     Teléfono como enlace clicable.
+============================================================ -->
+<footer id="contacto" aria-label="Información de contacto y horario">
+    <div class="footer-grid">
+        <div>
+            <div class="footer-brand">Barber &amp; Co.</div>
+            <p class="footer-tagline">El arte del corte perfecto.<br>Tradición y estilo en cada visita.<br>Providencia, Santiago.</p>
+        </div>
+        <div>
+            <div class="footer-col-title">Horario</div>
+            <ul class="footer-list">
+                <li>Lunes — Viernes: 9:00 – 20:00</li>
+                <li>Sábado: 9:00 – 18:00</li>
+                <li>Domingo: Cerrado</li>
+            </ul>
+        </div>
+        <address>
+            <div class="footer-col-title">Contacto</div>
+            <ul class="footer-list">
+                <li><a href="tel:+56223456789">+56 2 2345 6789</a></li>
+                <li><a href="mailto:hola@barberandco.cl">hola@barberandco.cl</a></li>
+                <li>Av. Providencia 1234, Santiago</li>
+                <li><a href="https://instagram.com/barberandco" rel="noopener noreferrer" target="_blank">@barberandco</a></li>
+            </ul>
+        </address>
+    </div>
+    <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Barber &amp; Co. Todos los derechos reservados.</span>
+    </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

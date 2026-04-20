@@ -1,0 +1,30 @@
+# Claude
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies (para cuando agregues backend)
+node_modules/
+
+# Environment (nunca subir credenciales)
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+build/
+.next/
