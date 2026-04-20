@@ -435,6 +435,19 @@ document.addEventListener('DOMContentLoaded', () => {
     /* Confirmación */
     $('btn-new-booking').addEventListener('click', () => resetBooking());
 
+    /* Hamburger menu */
+    const burger    = $('nav-burger');
+    const mobileNav = $('nav-mobile');
+    function toggleMenu(open) {
+        burger.classList.toggle('open', open);
+        mobileNav.classList.toggle('open', open);
+        mobileNav.setAttribute('aria-hidden', String(!open));
+        burger.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'hidden' : '';
+    }
+    burger.addEventListener('click', () => toggleMenu(!burger.classList.contains('open')));
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
     /* Scroll reveal — IntersectionObserver */
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(e => {

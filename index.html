@@ -99,9 +99,21 @@
             <li><a href="#booking">Reservar</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
-        <!-- CTA top-right — zona de mayor temperatura en nav -->
         <a href="#booking" class="nav-cta" aria-label="Reservar hora de barbería">Reservar Hora</a>
+        <button class="nav-burger" id="nav-burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-mobile">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
+
+    <!-- Menú móvil overlay -->
+    <div class="nav-mobile" id="nav-mobile" aria-hidden="true">
+        <nav aria-label="Menú móvil">
+            <a href="#services" class="nav-mobile-link">Servicios</a>
+            <a href="#booking"  class="nav-mobile-link">Reservar</a>
+            <a href="#contacto" class="nav-mobile-link">Contacto</a>
+            <a href="#booking"  class="nav-mobile-cta">Reservar Hora</a>
+        </nav>
+    </div>
 </header>
 
 <!-- ============================================================
