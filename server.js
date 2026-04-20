@@ -48,7 +48,7 @@ app.post('/reservas', async (req, res) => {
         .select()
         .single();
 
-    if (error) return res.status(500).json({ error: error.message });
+    if (error) { console.error('Supabase POST error:', error); return res.status(500).json({ error: error.message }); }
 
     res.status(201).json({ ok: true, reserva: data });
 });
